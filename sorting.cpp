@@ -3,17 +3,44 @@
 using namespace std;
 
 // Merge Sort helper
-void merge(Task arr[], int left, int mid, int right) {
+void merge(Task arr[], int left, int mid, int right, string criterion) {
     int index1 = left;
     int index2 = mid + 1;
     Task temp[right - left + 1];
     int indexTemp = 0;
 
     while (index1 <= mid && index2 <= right) {
-        if (arr[index1].importance > arr[index2].importance) {
-            temp[indexTemp++] = arr[index1++];
+        if (criterion == "importance") {
+            if (arr[index1].importance > arr[index2].importance) {
+                temp[indexTemp++] = arr[index1++];
+            } else {
+                temp[indexTemp++] = arr[index2++];
+            }
+        } else if (criterion == "deadline") {
+            if (arr[index1].deadline < arr[index2].deadline) {
+                temp[indexTemp++] = arr[index1++];
+            } else {
+                temp[indexTemp++] = arr[index2++];
+            }
+        } else if (criterion == "studyTime") {
+            if (arr[index1].studyTime < arr[index2].studyTime) {
+                temp[indexTemp++] = arr[index1++];
+            } else {
+                temp[indexTemp++] = arr[index2++];
+            }
+        } else if (criterion == "difficulty") {
+            if (arr[index1].difficulty < arr[index2].difficulty) {
+                temp[indexTemp++] = arr[index1++];
+            } else {
+                temp[indexTemp++] = arr[index2++];
+            }
         } else {
-            temp[indexTemp++] = arr[index2++];
+            // Default to importance if criterion is unrecognized
+            if (arr[index1].importance > arr[index2].importance) {
+                temp[indexTemp++] = arr[index1++];
+            } else {
+                temp[indexTemp++] = arr[index2++];
+            }
         }
     }
 
@@ -36,7 +63,7 @@ void mergeSort(Task arr[], int left, int right, string criterion) {
         int mid = (left + right) / 2;
         mergeSort(arr, left, mid, criterion);
         mergeSort(arr, mid+1, right, criterion);
-        merge(arr, left, mid, right);
+        merge(arr, left, mid, right, criterion);
     }
 }
 
