@@ -1,4 +1,4 @@
-#include "Nutsack01_lib.cpp"
+#include "greedy_dp_lib.cpp"
 #include "aiml_module.h"
 #include "performance_module.h"
 
@@ -52,7 +52,7 @@ void runScenario(const string& label) {
     importData(greedyArr);
 
     t0 = timerStart();
-    vector<Task> greedyPlan = greedyFishyAhh(availableHours, greedyArr);
+    vector<Task> greedyPlan = greedyScheduler(availableHours, greedyArr);
     elapsed = timerStop(t0);
 
     cout << "\n    Module 3: Greedy Output \n";
@@ -69,7 +69,7 @@ void runScenario(const string& label) {
     importData(dpArr);
 
     t0 = timerStart();
-    vector<Task> dpPlan = NutSack01(availableHours, dpArr);
+    vector<Task> dpPlan = knapsack01DP(availableHours, dpArr);
     elapsed = timerStop(t0);
 
     cout << "\n    Module 4: DP Output \n";
