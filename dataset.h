@@ -50,7 +50,7 @@ int totalTasksB    = 10;
 int availableHrsB  = 10;
 // since the total available time is very less and deadlines are moderately urgent, we have to use dynamic programming to optimize our task selection
 
-// scenario c has the total time availability of 8 hrs and required study time of 21 hours (ratio = 33/10 = 2.6)
+// scenario c has the total time availability of 8 hrs and required study time of 21 hours (ratio = 21/8 = 2.6)
 Task tasksC[] = {
     {"T1",  "Revise Dynamic Programming", 3, 5, 2, 4, "Lecture"},
     {"T3",  "Finish Sorting Assignment",  4, 3, 1, 5, "Assignment"},
