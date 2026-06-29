@@ -14,7 +14,7 @@ public:
   int difficulty;
   string type;
 };
-// The data set consists of 3 scearios which have the same task ids, names,
+// The data set consists of 3 scenarios which have the same task ids, names,
 // study time, difficulty. importance and type but different number of tasks and
 // deadline
 
