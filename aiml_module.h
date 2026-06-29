@@ -68,8 +68,8 @@ struct TrainingExample {
 //15 training scenarios consisting of different time availability and urgency levels 
 const vector<TrainingExample> TRAINING_DATA = {
     {1.2, 3.8, 0, 2.0, 0}, {1.4, 4.0, 1, 2.0, 0}, {1.3, 3.5, 0, 3.0, 0}, {1.5, 4.2, 1, 2.5, 0},
-    {2.6, 4.3, 6, 2.0, 1}, {2.0, 4.0, 4, 2.0, 1}, {2.3, 4.5, 5, 1.5, 1}, {1.8, 3.8, 4, 2.0, 1},
-    {2.5, 4.0, 5, 2.5, 1}, {3.3, 4.0, 4, 3.0, 2}, {2.8, 4.5, 3, 3.0, 2}, {3.5, 4.2, 3, 3.5, 2},
+    {2.2, 4.3, 6, 2.0, 1}, {2.0, 4.0, 4, 2.0, 1}, {2.3, 4.5, 5, 1.5, 1}, {1.8, 3.8, 4, 2.0, 1},
+    {2.3, 4.0, 5, 2.5, 1}, {3.3, 4.0, 4, 3.0, 2}, {2.8, 4.5, 3, 3.0, 2}, {3.5, 4.2, 3, 3.5, 2},
     {2.5, 5.0, 2, 4.0, 2}, {3.0, 4.0, 4, 2.5, 2}, {4.0, 4.3, 3, 3.0, 2},
 };
 
@@ -81,19 +81,20 @@ string strategyName(int label) {
 }
 
 //  Decision Tree to judge whcih algorithm to apply 
-//  if the time pressure ratio is less apply sorting, else check whether the tasks are urgent, if yes the apply Greedy method
-// else if time pressure ratio is high apply dynamic programming. Else, stick with the greedy method.
 int decisionTree(const ScenarioFeatures& f) {
     if (f.timePressureRatio <= 1.5) {
-        return 0; // Sorting 
-    } else if (f.urgentTasks >= 4) {
-        return 1; // Greedy
-    } else if (f.urgentTasks <= 1 && f.timePressureRatio <= 2.0) {
         return 0; // Sorting
     } else if (f.timePressureRatio >= 2.5) {
-        return 2; // DP
+        return 2; // DP (high pressure)
     } else {
-        return 1; // Greedy
+        // Moderate pressure (1.5 < ratio < 2.5)
+        if (f.urgentTasks >= 4) {
+            return 1; // Greedy
+        } else if (f.urgentTasks <= 1) {
+            return 0; // Sorting
+        } else {
+            return 1; // Greedy
+        }
     }
 }
 
